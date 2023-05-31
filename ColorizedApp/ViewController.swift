@@ -24,12 +24,14 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewColor.layer.cornerRadius = 12
         setupRedSlider()
         setupGreenSlider()
         setupBlueSlider()
         redSliderValue.text = String(redSlider.value)
         greenSliderValue.text = String(greenSlider.value)
         blueSliderValue.text = String(blueSlider.value)
+        viewColor.backgroundColor = changeColor()
         
         
     }
