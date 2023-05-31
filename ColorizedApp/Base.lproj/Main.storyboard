@@ -62,10 +62,10 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="VIewColor" destination="uF6-2s-2kh" id="yv6-3e-hei"/>
                         <outlet property="redLable" destination="s5c-Ou-atK" id="vW4-Q6-JQX"/>
                         <outlet property="redSlider" destination="twY-1o-wgk" id="YrL-I7-GPf"/>
                         <outlet property="redSliderValue" destination="G3C-TY-QmB" id="3aC-ZC-PsA"/>
+                        <outlet property="viewColor" destination="uF6-2s-2kh" id="yv6-3e-hei"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
