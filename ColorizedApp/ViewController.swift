@@ -26,15 +26,16 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         viewColor.layer.cornerRadius = 12
         
-        setupRedSlider()
-        setupGreenSlider()
-        setupBlueSlider()
+        setupSlider(redSlider, value: 0.15)
+        setupSlider(greenSlider, value: 0.27)
+        setupSlider(blueSlider, value: 0.47)
         
         redSliderValue.text = String(redSlider.value)
         greenSliderValue.text = String(greenSlider.value)
         blueSliderValue.text = String(blueSlider.value)
-        
+
         changeColor()
+        
         
         
     }
@@ -56,19 +57,10 @@ class ViewController: UIViewController {
     
     
     //MARK: - Private Methods
-    private func setupRedSlider() {
-        redSlider.value = 0.15
+    private func setupSlider(_ slider: UISlider, value: Float) {
+        slider.value = value
     }
     
-    private func setupGreenSlider() {
-        greenSlider.value = 0.27
-    }
-    
-    private func setupBlueSlider() {
-        blueSlider.value = 0.47
-    }
-    
-//    private func setupSlider(
     private func changeColor() {
         viewColor.backgroundColor = UIColor(
             red: CGFloat(redSlider.value),
@@ -77,3 +69,5 @@ class ViewController: UIViewController {
         )
     }
 }
+
+
