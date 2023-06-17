@@ -9,6 +9,7 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     
+    // MARK: - IB Outlets
     @IBOutlet var colorView: UIView!
     
     @IBOutlet var redLabel: UILabel!
@@ -24,18 +25,14 @@ class SettingsViewController: UIViewController {
     @IBOutlet var blueTextField: UITextField!
     
     // MARK: - Public Properties
-    
     var delegate: SettingsViewControllerDelegate!
     var viewColor: UIColor!
     
-    // MARK: - Override Func
+    // MARK: - View Life Circle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         colorView.layer.cornerRadius = 15
-        
-        redSlider.tintColor = .red
-        greenSlider.tintColor = .green
         
         colorView.backgroundColor = viewColor
         
@@ -44,6 +41,7 @@ class SettingsViewController: UIViewController {
         setValue(for: redTextField, greenTextField, blueTextField)
     }
     
+    // MARK: - Override Func
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         view.endEditing(true)
@@ -131,10 +129,7 @@ extension SettingsViewController {
 
 // MARK: - UITextFieldDelegate
 extension SettingsViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-    }
-    
+
     func textFieldDidEndEditing(_ textField: UITextField) {
         guard let text = textField.text else { return }
         guard let textFieldValue = Float(text) else { return }
@@ -153,5 +148,4 @@ extension SettingsViewController: UITextFieldDelegate {
         
         setColor()
     }
-    
 }
