@@ -34,6 +34,10 @@ class SettingsViewController: UIViewController {
         
         colorView.layer.cornerRadius = 15
         
+        redTextField.delegate = self
+        greenTextField.delegate = self
+        blueTextField.delegate = self
+        
         colorView.backgroundColor = viewColor
         
         setValue(for: redSlider, greenSlider, blueSlider)
@@ -125,27 +129,61 @@ extension SettingsViewController {
         String(format: "%.2f", slider.value)
     }
     
+    @objc private func didTapDone() {
+        view.endEditing(true)
+    }
+    
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(okAction)
+        present(alert, animated: true)
+    }
 }
 
 // MARK: - UITextFieldDelegate
 extension SettingsViewController: UITextFieldDelegate {
-
+ 
     func textFieldDidEndEditing(_ textField: UITextField) {
         guard let text = textField.text else { return }
-        guard let textFieldValue = Float(text) else { return }
         
-        switch textField {
-        case redTextField:
-            redSlider.setValue(textFieldValue, animated: true)
-            setValue(for: redLabel)
-        case greenTextField:
-            greenSlider.setValue(textFieldValue, animated: true)
-            setValue(for: greenLabel)
-        default:
-            blueSlider.setValue(textFieldValue, animated: true)
-            setValue(for: blueLabel)
+        if let textFieldValue = Float(text) {
+            switch textField {
+            case redTextField:
+                redSlider.setValue(textFieldValue, animated: true)
+                setValue(for: redLabel)
+            case greenTextField:
+                greenSlider.setValue(textFieldValue, animated: true)
+                setValue(for: greenLabel)
+            default:
+                blueSlider.setValue(textFieldValue, animated: true)
+                setValue(for: blueLabel)
+            }
+            
+            setColor()
+            return
         }
         
-        setColor()
+        showAlert(title: "Wrong format!", message: "Please enter correct value")
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        let keyboardToolbar = UIToolbar()
+        keyboardToolbar.sizeToFit()
+        textField.inputAccessoryView = keyboardToolbar
+        
+        let doneButton = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self,
+            action: #selector(didTapDone)
+        )
+        
+        let flexBarButton = UIBarButtonItem(
+            barButtonSystemItem: .flexibleSpace,
+            target: nil,
+            action: nil
+        )
+        
+        keyboardToolbar.items = [flexBarButton, doneButton]
     }
 }
